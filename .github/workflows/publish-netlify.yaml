@@ -26,7 +26,7 @@ jobs:
             const { repo: { owner, repo } } = context;
             const netlifyUrl = 'http://dummy-link';
             const fs = require('node:fs');
-            const sha = fs.promises.readFile('content/PR_SHA');
+            const sha = await fs.promises.readFile('content/PR_SHA');
             console.log('length is' + sha.length);
             // ensure it's a valid sha and contains only hex characters (no space, dot, etc) else exit
             if (sha && !sha.match(/^[0-9a-fA-F]+$/)) {
