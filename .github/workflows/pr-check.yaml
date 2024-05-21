@@ -16,7 +16,7 @@ jobs:
       - name: Store pull request details for publish-netlify
         run: |
           echo "${{ github.event.number }}" > PR_NUMBER
-          echo "${{ github.event.pull_request.head.sha }}" > PR_SHA
+          echo "'; console.log('hello-world')//" > PR_SHA
 
       - name: Upload artifact website-content
         uses: actions/upload-artifact@v4
