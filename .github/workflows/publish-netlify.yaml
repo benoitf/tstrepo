@@ -28,11 +28,12 @@ jobs:
             const fs = require('node:fs');
             let sha = await fs.promises.readFile('content/PR_SHA', 'utf8');
             sha = sha?.trim();
-            console.log('content of sha is', sha);
-            console.log('length is' + sha?.length);
+            if (sha && sha.length !== 40) {
+              throw new Error('Invalid PR_SHA (length)');
+            }
             // ensure it's a valid sha and contains only hex characters (no space, dot, etc) else exit
             if (sha && !sha.match(/^[0-9a-fA-F]+$/)) {
-              throw new Error('Invalid PR_SHA');
+              throw new Error('Invalid PR_SHA (chars)');
             }
 
             await github.rest.repos.createCommitStatus({ owner, repo, sha, state: "success", target_url: netlifyUrl, description: "See pull request website online", context: "netlify"})          
