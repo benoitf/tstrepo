@@ -19,11 +19,6 @@ jobs:
           name: website-content
           path: content
 
-      - name: Set PR_NUMBER and PR_SHA variables
-        id: vars
-        run: |
-          echo "PR_NUMBER=$(<content/PR_NUMBER)" > /tmp/> $GITHUB_OUTPUT
-          echo "PR_SHA=$(<content/PR_SHA)" >> $GITHUB_OUTPUT
       - name: 'Update status of Pull Request'
         uses: actions/github-script@v7
         with:
