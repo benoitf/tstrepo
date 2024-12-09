@@ -98,7 +98,7 @@ jobs:
           echo "electron arm64 zip sha256 is ${ELECTRON_ARM64_SHASUM}"
 
           # copy original yaml file
-          cp io.podman_desktop.PodmanDesktop.yml /io.podman_desktop.PodmanDesktop.ori
+          cp io.podman_desktop.PodmanDesktop.yml io.podman_desktop.PodmanDesktop.ori
 
           # update the url and sha256 for the electron binaries for arm64
           yq -i '(.modules[].sources[] | select(.url == "*electron*amd64*")) += {"url":strenv(ELECTRON_AMD64_URL), "sha256":strenv(ELECTRON_AMD64_SHASUM)}' io.podman_desktop.PodmanDesktop.yml
@@ -113,6 +113,8 @@ jobs:
 
           echo "Updated yaml file:"
           cat io.podman_desktop.PodmanDesktop.yml
+
+          diff io.podman_desktop.PodmanDesktop.yml io.podman_desktop.PodmanDesktop.ori
           
         env:
           GITHUB_TOKEN: ${{ secrets.PODMAN_DESKTOP_BOT_TOKEN }}
