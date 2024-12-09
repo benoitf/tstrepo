@@ -78,7 +78,7 @@ jobs:
           echo "podman Desktop pnpm amd64 .tgz file sha256 is ${PODMAN_DESKTOP_PNPM_AMD64_SHASUM}"
 
           # find the version of electron being used by podman desktop
-          wget https://raw.githubusercontent.com/podman-desktop/podman-desktop/refs/tags/v${{ steps.VERSION.outputs.desktopVersion }}/package.json -o podman-desktop-package.json
+          wget "https://raw.githubusercontent.com/podman-desktop/podman-desktop/refs/tags/v${{ steps.VERSION.outputs.desktopVersion }}/package.json" -o podman-desktop-package.json
           echo "display the package json file"
           ls -la
           cat podman-desktop-package.json
