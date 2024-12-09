@@ -125,7 +125,8 @@ jobs:
           git commit -m "${TITLE}"
           git remote add podman-desktop-bot https://github.com/podman-desktop-bot/io.podman_desktop.PodmanDesktop
           git push podman-desktop-bot "${LOCAL_BRANCH_NAME}"
-          gh pr create --title "${TITLE}" --body "${TITLE}" --base "master" --head "flathub/io.podman_desktop.PodmanDesktop:master" --repo "podman-desktop-bot/io.podman_desktop.PodmanDesktop"
+          gh pr create --title "${TITLE}" --body "${TITLE}"
+          # --base "master" --head "flathub/io.podman_desktop.PodmanDesktop:master" --repo "podman-desktop-bot/io.podman_desktop.PodmanDesktop"
 
         env:
           GH_TOKEN: ${{ secrets.PODMAN_DESKTOP_BOT_TOKEN }}
