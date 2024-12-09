@@ -118,10 +118,12 @@ jobs:
         run: |
           git config --local user.name ${{ github.actor }}
           git config --local user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
-          git checkout -b update-to-${{ steps.VERSION.outputs.desktopVersion }}
+          export LOCAL_BRANCH_NAME="update-to-${{ steps.VERSION.outputs.desktopVersion }}"
+          git checkout -b "${LOCAL_BRANCH_NAME}"
           git add io.podman_desktop.PodmanDesktop.yml
           export TITLE="feat: update Podman Desktop to version ${{ steps.VERSION.outputs.desktopVersion }}"
           git commit -m "${TITLE}"
+          git push origin "${LOCAL_BRANCH_NAME}"
           gh pr create --title "${TITLE}" --body "${TITLE}" --base "master" --head "flathub/io.podman_desktop.PodmanDesktop:master" --repo "podman-desktop-bot/io.podman_desktop.PodmanDesktop"
 
         env:
