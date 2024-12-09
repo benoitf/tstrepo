@@ -35,9 +35,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: 'flathub/io.podman_desktop.PodmanDesktop'
-          # Default: ${{ github.token }}
+          # Change the token to the one that has write access to the fork repository
           token:  ${{ secrets.PODMAN_DESKTOP_BOT_TOKEN }}
-  
+
       - name: Set version
         id: VERSION
         run: |
@@ -102,14 +102,14 @@ jobs:
           # update the url and sha256 for the electron binaries for arm64
           yq -i '(.modules[].sources[] | select(.url == "*electron*amd64*")) += {"url":strenv(ELECTRON_AMD64_URL), "sha256":strenv(ELECTRON_AMD64_SHASUM)}' io.podman_desktop.PodmanDesktop.yml
           yq -i '(.modules[].sources[] | select(.url == "*electron*arm64*")) += {"url":strenv(ELECTRON_ARM64_URL), "sha256":strenv(ELECTRON_ARM64_SHASUM)}' io.podman_desktop.PodmanDesktop.yml
-          
+
           # update the pnpm store url/sha256
           yq -i '(.modules[].sources[] | select(.url == "*store-cache-pnpm*amd64*")) += {"url":strenv(PNPM_STORE_CACHE_AMD64_URL), "sha256":strenv(PODMAN_DESKTOP_PNPM_AMD64_SHASUM)}' io.podman_desktop.PodmanDesktop.yml
           yq -i '(.modules[].sources[] | select(.url == "*store-cache-pnpm*arm64*")) += {"url":strenv(PNPM_STORE_CACHE_ARM64_URL), "sha256":strenv(PODMAN_DESKTOP_PNPM_ARM64_SHASUM)}' io.podman_desktop.PodmanDesktop.yml
 
           # update the source url/sha256 of podman desktop
           yq -i '(.modules[].sources[] | select(.url == "*podman-desktop*refs*tags*")) += {"url":strenv(PODMAN_DESKTOP_SOURCE_URL), "sha256":strenv(PODMAN_DESKTOP_SOURCE_SHASUM)}' io.podman_desktop.PodmanDesktop.yml
-          
+
           echo "Updated yaml file:"
           cat io.podman_desktop.PodmanDesktop.yml
           
