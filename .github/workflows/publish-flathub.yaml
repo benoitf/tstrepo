@@ -79,9 +79,12 @@ jobs:
 
           # find the version of electron being used by podman desktop
           wget "https://raw.githubusercontent.com/podman-desktop/podman-desktop/refs/tags/v${{ steps.VERSION.outputs.desktopVersion }}/package.json" -o podman-desktop-package.json
+          echo "url is https://raw.githubusercontent.com/podman-desktop/podman-desktop/refs/tags/v${{ steps.VERSION.outputs.desktopVersion }}/package.json"
           echo "display the package json file"
           ls -la
+          echo "before"
           cat podman-desktop-package.json
+          echo "after"          
           # set the version of electron
           ELECTRON_VERSION=$(jq -r '.devDependencies.electron' podman-desktop-package.json)
           echo "Found electron ${ELECTRON_VERSION}"
